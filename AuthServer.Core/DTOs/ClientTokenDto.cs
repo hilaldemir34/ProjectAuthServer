@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace AuthServer.Core.DTOs
 {
-    internal class ClientTokenDto
+    public class ClientTokenDto//üyelik sistemi ile ilgili bir şey yok.Clientları döneceğimiz token modeli.
     {
+        public string AccessToken { get; set; }
+        public DateTime AccessTokenExpiration { get; set; }
     }
 }

@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AuthServer.Core.Repositories
+namespace AuthServer.Core.Repositories//data katmanında implemente ediyorum
 {
     public interface IGenericRepository<TEntity> where TEntity:class
     {

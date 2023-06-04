@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace AuthServer.Core.DTOs
 {
-    internal class TokenDtos
+    public class TokenDto//tokendto oluştuğunda refresh tokenı veri tabanına kaydedeceğim
     {
+        public string AccessToken { get; set; }
+        public DateTime AccessTokenExpiration { get; set; }
+        public string RefreshToken { get; set; }
+        public DateTime  RefreshTokenExpiration { get; set; }
     }
 }

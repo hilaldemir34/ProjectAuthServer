@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AuthServer.Core.DTOs
+namespace AuthServer.Core.DTOs//Dtoların hepsini clientlar görür
 {
-    internal class LoginDto
+    public class LoginDto
     {
+        public string Email { get; set; }
+        public string Password { get; set; }
     }
 }
