@@ -21,7 +21,7 @@ namespace AuthServer.Data.Repositories
             _dbSet = context.Set<TEntity>();
 ;        }
 
-        public async Task AddAsync(TEntity entity)
+        public async Task AddAsync(TEntity entity)//memory ye entity ekledik veri tabanına yansımadı
         {
             await _dbSet.AddAsync(entity);//asenkronla beraber bloklanmayan threadler yazıyoruz. 
         }
@@ -48,7 +48,7 @@ namespace AuthServer.Data.Repositories
 
         public TEntity Update(TEntity entity)
         {
-            _context.Entry(entity).State = EntityState.Modified;
+            _context.Entry(entity).State = EntityState.Modified;//entity nin statini değiştirdim.memory de kaydedildi.veri tabanına savechange ile yansır.
             return entity;
         }
 

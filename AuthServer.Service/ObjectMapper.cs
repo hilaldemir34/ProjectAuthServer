@@ -14,7 +14,7 @@ namespace AuthServer.Service
         //ben datayı alana kadar memory de bulunmasın.istediğim anda memory de bulunsun.
         private static readonly Lazy<IMapper> lazy = new Lazy<IMapper>(() =>
         {//hernahgi bir parametre almayan IMapper dönen
-            var config = new MapperConfiguration(cfg =>
+            var config = new MapperConfiguration(cfg =>//cfg=IMapperConfigurationInterfacetir.
             {
                 cfg.AddProfile<DtoMapper>();//automappera bildir.
             });

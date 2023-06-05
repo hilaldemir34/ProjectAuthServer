@@ -6,8 +6,8 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace SharedLibrary.Dtos
-{
-    public class Response<T> where T:class
+{//apilardaki endpointten response sınıfını döneceğiö
+    public class Response<T> where T:class//her bir entity ye istek yapıldığında başarılı da olsa başarısız da olsa tek bir model döneceğiz.
     {
         public T Data { get; private set; }
         public int StatusCode { get; private set; }
