@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace AuthServer.Core.Services
 {//datadan gelen entity yi dto ya dönüştürüp servisten api ya sunacağım
     public interface IServiceGeneric<TEntity, TDto> where TEntity : class where TDto : class//Api n kullanacağı datayı dönücem
-    {
+    {//tüm bussines kodunu bu interface i implemente eden yerde yazacağım.
         Task<Response<TDto>> GetByIdAsync(int id);//Tentity tdto ya dönüştü ve response sınıfına gönderip tdo yu döndürdük
         Task<Response<IEnumerable<TDto>>> GetAllAsync();
         Task<Response<IEnumerable<TDto>>> Where(Expression<Func<TEntity, bool>> predicate);

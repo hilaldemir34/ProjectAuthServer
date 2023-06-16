@@ -12,7 +12,7 @@ namespace AuthServer.Core.Services
     {                           //direkt api ile haberleşecek
         //bu methodu AUTHAPI da herhangi bir kullanıcı oluşturacak controllerın constructorın da bu servisi geçeceğim.
         //bu yüzden response dönmeliyim
-        Task<Response<UserAppDto>> CreateUserAsync(CreateUserDto createUserDto);
+        Task<Response<UserAppDto>> CreateUserAsync(CreateUserDto createUserDto);//geriye userapp dto döneceğiz.veri tabanında oluşan kullanıcıyı id alarak dön
         Task<Response<UserAppDto>> GetUserByNameAsync(string UserName);//username ine göre veri tabanından
                                                                        //kullanıcıyı bul.
     }

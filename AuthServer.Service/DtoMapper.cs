@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AuthServer.Service
 {
-    internal class DtoMapper:Profile//profile sınıfından miras alarak maplenme işlemini gerçekleştirdim.
+    internal class DtoMapper:Profile//profile sınıfından miras alarak mapleme işlemini gerçekleştirdim.
     {
         public DtoMapper()
         {

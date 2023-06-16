@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AuthServer.Service.Services
 {
-    public static class SignService
+    public static class SignService//key imzala geriye symmetric securitykey dön
     {
         public static SecurityKey GetSymmetricSecurityKey(string securityKey)
         {

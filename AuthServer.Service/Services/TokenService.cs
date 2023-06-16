@@ -19,11 +19,12 @@ using System.Threading.Tasks;
 namespace AuthServer.Service.Services
 {
     public class TokenService : ITokenService
-    {//refreshtoken için string değer üretmeliyiz.
         //usermanager kullanabilmem için identity ioc eklemelziyiz api ye.
+        //core katmanındaki authentication service burayı kullanacak.
+    {//refreshtoken için string değer üretmeliyiz.
         private readonly UserManager<UserApp> _userManager;
         private readonly CustomTokenOption _tokenOption;
-        public TokenService(UserManager<UserApp> userManager,IOptions<CustomTokenOption>options)
+        public TokenService(UserManager<UserApp> userManager,IOptions<CustomTokenOption>options)//IOptions interfacin generici üzerinden geçiyorum
         {
             _userManager = userManager;
             _tokenOption = options.Value;

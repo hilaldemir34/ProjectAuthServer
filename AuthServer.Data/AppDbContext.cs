@@ -13,9 +13,11 @@ namespace AuthServer.Data
     //models deki entityleri identity üyelik sisteminde tabloları oluşturduğu veri tabanında kullanmak istiyorum
     //identity api ile beraber üyelik sistemiyle ilgili tablolara ulaş
     //modeldeki 2 tabloyu da aynı dbcontext içinde tutmak istiyorum.
+    //sqlserver daki veri tabanına karşılık gelecek.
     public class AppDbContext:IdentityDbContext<UserApp,IdentityRole,string>
     {
-        public AppDbContext(DbContextOptions<AppDbContext>options):base(options)
+        public AppDbContext(DbContextOptions<AppDbContext>options):base(options)//dbcontextoptions startup tarafında dolacak.
+                                                                                //AppDbContext üzerinden options ekleyeceğim
         {
             
         }
@@ -23,7 +25,7 @@ namespace AuthServer.Data
         public DbSet<UserRefreshToken> UserRefreshTokens { get; set; }
 
 
-        protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder builder)//product ve refreshtoken ayarı
         {
             builder.ApplyConfigurationsFromAssembly(GetType().Assembly);//verilen assembly ile assembly içindeki tüm configuration 
                                                                         //dosyalarını ekleyeceğim.

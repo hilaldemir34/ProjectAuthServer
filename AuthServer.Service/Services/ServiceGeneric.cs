@@ -26,10 +26,10 @@ namespace AuthServer.Service.Services
 
         public async Task<Response<TDto>> AddAsync(TDto entity)
         {
-            var newEntity = ObjectMapper.Mapper.Map<TEntity>(entity);//api dan dto nesneleri alacağım.Dto yu entity ye çevir.
-            await _genericRepository.AddAsync(newEntity);//yeni data eklendi
+            var newEntity = ObjectMapper.Mapper.Map<TEntity>(entity);//api dan dto nesneleri alacağım.Dtodan dönüştürmüş olduğum bi entity nesnem var.
+            await _genericRepository.AddAsync(newEntity);//yeni data eklendi.TEntity istiyordu benden. 
             await _unitOfWork.CommitAsync();//veri tabanına yansıttım.newEntity nin id si yüklendi.
-            var newDto = ObjectMapper.Mapper.Map<TDto>(newEntity);//dto nun id sini de dolduracağım.
+            var newDto = ObjectMapper.Mapper.Map<TDto>(newEntity);//dto nun id sini de dolduracağım.geriye bir Dto döneceğim.
             return Response<TDto>.Success(newDto, 200);
         }
 
@@ -37,7 +37,7 @@ namespace AuthServer.Service.Services
         public async Task<Response<IEnumerable<TDto>>> GetAllAsync()
         {
             var products = ObjectMapper.Mapper.Map<List<TDto>>(await _genericRepository.GetAllAsync());
-            return Response<IEnumerable<TDto>>.Success(products, 200);
+            return Response<IEnumerable<TDto>>.Success(products, 200);//direkt datayı döndüm.
 
         }
 
@@ -67,12 +67,13 @@ namespace AuthServer.Service.Services
 
         public async Task<Response<NoDataDto>> Update(TDto entity,int id)
         {
-            var isExistEntity = await _genericRepository.GetByIdAsync(id);
+            var isExistEntity = await _genericRepository.GetByIdAsync(id);//getbyidasync state i detached yani memory de thread edilmiyor.
             if(isExistEntity==null)
             {
                 return Response<NoDataDto>.Fail("Id not found", 404, true);
             }
-            _genericRepository.Update(isExistEntity);
+            var updateEntity = ObjectMapper.Mapper.Map<TEntity>(entity);//entity yi TEntity ye çevirdim.
+            _genericRepository.Update(updateEntity);
             await _unitOfWork.CommitAsync();
             return Response<NoDataDto>.Success(204);
 
@@ -80,6 +81,7 @@ namespace AuthServer.Service.Services
 
         public async Task<Response<IEnumerable<TDto>>> Where(Expression<Func<TEntity, bool>> predicate)
         {
+            //where(x=>x.id>5)
             var list = _genericRepository.Where(predicate);
             return Response<IEnumerable<TDto>>.Success(ObjectMapper.Mapper.Map<IEnumerable<TDto>>(await list.ToListAsync()), 200);
         }
