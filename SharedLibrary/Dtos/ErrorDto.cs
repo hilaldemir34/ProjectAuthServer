@@ -8,7 +8,7 @@ namespace SharedLibrary.Dtos
 {
     public class ErrorDto
     {
-        public List<string> Errors { get; private set; }//dışardan başka biri bu propertyleri set edemez.Set etmek istiyorsa constructor kullan.
+        public List<string> Errors { get; private set; } = new List<string>();//dışardan başka biri bu propertyleri set edemez.Set etmek istiyorsa constructor kullan.
         public bool IsShow { get; private set; }
   
         public ErrorDto(string error,bool isShow)

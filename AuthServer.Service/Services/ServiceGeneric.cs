@@ -48,7 +48,8 @@ namespace AuthServer.Service.Services
             {
                 return Response<TDto>.Fail("Id not found", 404, true);
             }
-            return Response<TDto>.Success(ObjectMapper.Mapper.Map<TDto>(product), 200);
+            return Response<TDto>.Success(ObjectMapper.Mapper.Map<TDto>(product), 200);//productı dto ya dönüştür geri dön.
+
         }
 
 
@@ -59,7 +60,7 @@ namespace AuthServer.Service.Services
             {
                 return Response<NoDataDto>.Fail("Id not found", 404, true);
             }
-            _genericRepository.Remove(isExistEntity);
+            _genericRepository.Remove(isExistEntity);//savechange i deleted işaretledik.
             await _unitOfWork.CommitAsync();
             return Response<NoDataDto>.Success(204);
         }

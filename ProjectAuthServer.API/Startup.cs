@@ -6,6 +6,7 @@ using AuthServer.Core.UnitOfWork;
 using AuthServer.Data;
 using AuthServer.Data.Repositories;
 using AuthServer.Service.Services;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -19,6 +20,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using SharedLibrary.Configurations;
+using SharedLibrary.Services;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -39,6 +41,7 @@ namespace ProjectAuthServer.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //DI Registered:Uygulama boyunca bir nesne örneði oluþsun.Tek bir istek de tek bir nesne örneði oluþsun.ayný instance kullansýn
             services.AddScoped<IAuthenticationService, AuthenticationService>();// Herhangi bir constructor IAuthentication service ile karþýlaþtýðýnda AuthenticationService den instance alýr.
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ITokenService, TokenService>();
@@ -60,7 +63,7 @@ namespace ProjectAuthServer.Api
             }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
 
 
-            services.Configure<CustomTokenOption>(Configuration.GetSection("TokenOption"));
+            services.Configure<CustomTokenOption>(Configuration.GetSection("TokenOption"));//customtokenoption tokenoptiondaki parametreleri doldurup instance verir.
             services.Configure<List<Client>>(Configuration.GetSection("Clients"));
             services.AddAuthentication(options =>
             {
@@ -87,7 +90,10 @@ namespace ProjectAuthServer.Api
             }
             );
 
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation(options=>
+            {
+                options.RegisterValidatorsFromAssemblyContaining<Startup>();
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProjectAuthServer.Api", Version = "v1" });

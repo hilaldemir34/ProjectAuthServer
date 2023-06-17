@@ -14,7 +14,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-
+using SharedLibrary.Services;
 
 namespace AuthServer.Service.Services
 {
@@ -29,11 +29,11 @@ namespace AuthServer.Service.Services
             _userManager = userManager;
             _tokenOption = options.Value;
         }
-        private string CreateRefreshToken()//token oluşturduğumda claimler payloada eklenecek.
+        private string CreateRefreshToken()//token oluşturduğumda claimler payloada eklenecek.refreshtokenı set etmek için kullan.
         {
-            var numberByte = new Byte[32];
-            using var rnd = RandomNumberGenerator.Create();
-            rnd.GetBytes(numberByte);
+            var numberByte = new Byte[32];//32 bytle lık string değer üret
+            using var rnd = RandomNumberGenerator.Create();//random değer alacak 
+            rnd.GetBytes(numberByte);//random değeri bytelara aktar
             return Convert.ToBase64String(numberByte);//encod ettik
         }
         private IEnumerable<Claim>GetClaims(UserApp userApp, List<string> audiences)
@@ -74,7 +74,7 @@ namespace AuthServer.Service.Services
                  claims: GetClaims(userApp, _tokenOption.Audience),
                  signingCredentials: signingCredentials);
 
-            var handler = new JwtSecurityTokenHandler();
+            var handler = new JwtSecurityTokenHandler();//bir token oluşturacak
 
             var token = handler.WriteToken(jwtSecurityToken);
 

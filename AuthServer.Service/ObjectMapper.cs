@@ -9,7 +9,7 @@ namespace AuthServer.Service
 {
     public static class ObjectMapper//IMapper üzerinden interface i almalıyım.
                              //Imapper üzerinden mapleme kodlamalarını gerçekleştir.
-                             //nesne örneğini buradan alacağım 
+                             //objectmapper üzerinden nesne örneğini buradan alacağım 
     {
         //ben datayı alana kadar memory de bulunmasın.istediğim anda memory de bulunsun.Lazy loading, ihtiyaç olduğunda yükle demek.ihtiyaç anında çek
         private static readonly Lazy<IMapper> lazy = new Lazy<IMapper>(() =>
