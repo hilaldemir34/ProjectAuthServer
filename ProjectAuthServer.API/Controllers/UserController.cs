@@ -3,6 +3,7 @@ using AuthServer.Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SharedLibrary.Exceptions;
 using System.Threading.Tasks;
 
 namespace ProjectAuthServer.Api.Controllers
@@ -20,6 +21,7 @@ namespace ProjectAuthServer.Api.Controllers
         [HttpPost]//methodun tipine göre eşleşme var
         public async Task<IActionResult>CreateUser(CreateUserDto createUserDto)
         {
+            throw new CustomException("Veri tabanı ile ilgili bir hata meydana geldi");
             return ActionResultInstance(await _userService.CreateUserAsync(createUserDto));
         }
         [Authorize]//mutlaka token istiyor.

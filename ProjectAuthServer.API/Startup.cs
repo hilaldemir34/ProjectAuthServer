@@ -20,6 +20,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using SharedLibrary.Configurations;
+using SharedLibrary.Extensions;
 using SharedLibrary.Services;
 using System;
 using System.Collections.Generic;
@@ -94,6 +95,7 @@ namespace ProjectAuthServer.Api
             {
                 options.RegisterValidatorsFromAssemblyContaining<Startup>();
             });
+            services.UseCustomValidationResponse();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProjectAuthServer.Api", Version = "v1" });
@@ -109,6 +111,11 @@ namespace ProjectAuthServer.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ProjectAuthServer.Api v1"));
             }
+            else
+            {
+               
+            }
+            app.UseCustomException();
 
             app.UseHttpsRedirection();
 
